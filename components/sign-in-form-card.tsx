@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { SignInSchema } from "@/types";
 import { toast } from "@/components/ui/use-toast";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -35,7 +35,12 @@ export default function SignInFormCard() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof SignInSchema>) {
+  useEffect(() => {
+    console.log("Initial render: isMagicLinkSent =", isMagicLinkSent);
+  }, [isMagicLinkSent]);
+
+  const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
+    console.log("Form Submitted:", values);
     const res = await signIn(values);
 
     if (!res.success) {
@@ -43,53 +48,51 @@ export default function SignInFormCard() {
         variant: "destructive",
         description: res.message,
       });
-    } else if (res.success) {
+    } else {
       toast({
         variant: "default",
         description: res.message,
       });
       setIsMagicLinkSent(true);
+      console.log("Magic link sent: isMagicLinkSent =", isMagicLinkSent);
     }
-  }
+  };
 
-  return isMagicLinkSent ? (
+  console.log("Render: isMagicLinkSent =", isMagicLinkSent);
+
+  return (
     <Card>
       <CardHeader>
-        <CardTitle>Magic Link Sent</CardTitle>
+        <CardTitle>{isMagicLinkSent ? "Magic Link Sent" : "Welcome"}</CardTitle>
         <CardDescription>
-          Check your email for a magic link to sign in.
-        </CardDescription>
-      </CardHeader>
-    </Card>
-  ) : (
-    <Card>
-      <CardHeader>
-        <CardTitle>Welcome</CardTitle>
-        <CardDescription>
-          Enter your email and we&apos;ll send you a magic link to sign in.
+          {isMagicLinkSent
+            ? "Check your email for a magic link to sign in."
+            : "Enter your email and we'll send you a magic link to sign in."}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full">
-              Send Magic Link
-            </Button>
-          </form>
-        </Form>
+        {!isMagicLinkSent && (
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full">
+                Send Magic Link
+              </Button>
+            </form>
+          </Form>
+        )}
       </CardContent>
     </Card>
   );
