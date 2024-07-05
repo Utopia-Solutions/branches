@@ -10,7 +10,7 @@ export default async function SignInPage() {
   }
 
   return (
-    <main className="flex flex-col w-full h-full items-center justify-center">
+    <main className="container flex flex-col w-full h-full items-center justify-center">
       <SignInFormCard />
     </main>
   );
