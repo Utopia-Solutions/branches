@@ -27,6 +27,7 @@ import { signIn } from "@/actions/auth";
 
 export default function SignInFormCard() {
   const [isMagicLinkSent, setIsMagicLinkSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
@@ -43,6 +44,7 @@ export default function SignInFormCard() {
   if (!isClient) return null;
 
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
+    setIsLoading(true);
     const res = await signIn(values);
 
     if (!res.success) {
@@ -57,6 +59,7 @@ export default function SignInFormCard() {
       });
       setIsMagicLinkSent(true);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -86,8 +89,8 @@ export default function SignInFormCard() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
-                Send Magic Link
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Sending..." : "Send Magic Link"}
               </Button>
             </form>
           </Form>

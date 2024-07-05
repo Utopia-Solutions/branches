@@ -15,7 +15,7 @@ const USER_EMAIL = process.env.GOOGLE_API_OAUTH_USER_EMAIL;
 export const sendEmail = async (
   recipientEmail: string,
   subject: string,
-  text: string
+  html: string
 ) => {
   const oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
@@ -42,7 +42,7 @@ export const sendEmail = async (
       from: USER_EMAIL,
       to: recipientEmail,
       subject,
-      text,
+      html,
     };
 
     await transporter.sendMail(mailOptions);
