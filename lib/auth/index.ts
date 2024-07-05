@@ -12,7 +12,7 @@ export const lucia = new Lucia(adapter, {
   },
 });
 
-export const validateRequest = cache(async () => {
+export const validateSession = cache(async () => {
   const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
 
   if (!sessionId)
@@ -22,6 +22,7 @@ export const validateRequest = cache(async () => {
     };
 
   const { user, session } = await lucia.validateSession(sessionId);
+
   try {
     if (session && session.fresh) {
       const sessionCookie = lucia.createSessionCookie(session.id);
@@ -38,9 +39,13 @@ export const validateRequest = cache(async () => {
         sessionCookie.value,
         sessionCookie.attributes
       );
+      return {
+        user: null,
+        session: null,
+      };
     }
-  } catch {
-    // Next.js throws error when attempting to set cookies when rendering page
+  } catch (error) {
+    console.error("validateSession Error:", error);
   }
   return {
     user,

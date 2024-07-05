@@ -1,22 +1,17 @@
-import { Button } from "@/components/ui/button";
-import { validateRequest } from "@/auth";
+import { validateSession } from "@/lib/auth";
+import WelcomeCard from "@/components/welcome-card";
 import { redirect } from "next/navigation";
-import { signOut } from "@/actions/auth";
 
-export default async function Home() {
-  const { user } = await validateRequest();
+export default async function HomePage() {
+  const { user } = await validateSession();
 
   if (!user) {
     return redirect("/sign-in");
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <p>Protected route</p>
-      <p>{JSON.stringify(user)}</p>
-      <form action={signOut}>
-        <Button type="submit">Sign out</Button>
-      </form>
+    <main className="flex flex-col w-full h-full items-center justify-center">
+      <WelcomeCard user={user} />
     </main>
   );
 }

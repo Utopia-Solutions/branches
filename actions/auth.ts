@@ -1,35 +1,14 @@
 "use server";
-import db from "@/db";
-import { magicLinkTable, userTable } from "@/db/schema";
+
+import { SignInSchema } from "@/types";
+import db from "@/lib/db";
+import { magicLinkTable, userTable } from "@/lib/db/schema.ts";
 import { eq } from "drizzle-orm";
 import { generateId } from "lucia";
 import { z } from "zod";
-import jwt from "jsonwebtoken";
-import { SignInSchema } from "@/types";
-import { lucia, validateRequest } from "@/auth";
+import { generateMagicLink, sendMagicLinkEmail } from "./magic-link.ts";
+import { lucia, validateSession } from "@/lib/auth";
 import { cookies } from "next/headers";
-
-const sendEmail = async (email: string, url: string) => {
-  // send email logic
-  console.log(`Email sent to ${email} with the link: ${url}`);
-};
-
-const generateMagicLink = async (email: string, userId: string) => {
-  const token = jwt.sign({ email: email, userId }, process.env.JWT_SECRET!, {
-    expiresIn: "5m",
-  });
-
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/magic-link?token=${token}`;
-
-  return {
-    success: true,
-    message: "Magic link generated successfully",
-    data: {
-      token,
-      url,
-    },
-  };
-};
 
 export const signIn = async (values: z.infer<typeof SignInSchema>) => {
   try {
@@ -47,9 +26,9 @@ export const signIn = async (values: z.infer<typeof SignInSchema>) => {
         token: response.data.token,
       });
 
-      await sendEmail(values.email, response.data.url);
+      await sendMagicLinkEmail(values.email, response.data.url);
     } else {
-      // we will create the user
+      // TODO: DO NOT generate a new user, return an error instead
       const userId = generateId(15);
       await db.insert(userTable).values({
         email: values.email,
@@ -61,7 +40,7 @@ export const signIn = async (values: z.infer<typeof SignInSchema>) => {
         userId,
         token: response.data.token,
       });
-      await sendEmail(values.email, response.data.url);
+      await sendMagicLinkEmail(values.email, response.data.url);
     }
 
     return {
@@ -80,12 +59,9 @@ export const signIn = async (values: z.infer<typeof SignInSchema>) => {
 
 export const signOut = async () => {
   try {
-    const { session } = await validateRequest();
-
+    const { session } = await validateSession();
     if (!session) {
-      return {
-        error: "Unauthorized",
-      };
+      return { success: false, error: "Unauthorized" };
     }
 
     await lucia.invalidateSession(session.id);
@@ -97,9 +73,13 @@ export const signOut = async () => {
       sessionCookie.value,
       sessionCookie.attributes
     );
+
+    return { success: true };
   } catch (error: any) {
+    console.error("signOut Error:", error);
     return {
-      error: error?.message,
+      success: false,
+      error: error.message || "An unknown error occurred",
     };
   }
 };

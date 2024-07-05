@@ -1,22 +1,17 @@
-import { SignInForm } from "@/components/sign-in-form";
-import { validateRequest } from "@/auth";
+import SignInFormCard from "@/components/sign-in-form-card";
+import { validateSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
-export default async function SignUpPage() {
-  const { user } = await validateRequest();
+export default async function SignInPage() {
+  const { user } = await validateSession();
 
   if (user) {
     return redirect("/");
   }
 
   return (
-    <div className="pt:mt-0 mx-auto flex flex-col items-center justify-center px-6 pt-8 dark:bg-gray-900 md:h-screen">
-      <div className="w-full max-w-xl space-y-8 rounded-lg bg-white p-6 shadow dark:bg-gray-800 sm:p-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Sign in to your account
-        </h2>
-        <SignInForm />
-      </div>
-    </div>
+    <main className="flex flex-col w-full h-full items-center justify-center">
+      <SignInFormCard />
+    </main>
   );
 }
