@@ -28,6 +28,10 @@ import { signIn } from "@/actions/auth";
 export default function SignInFormCard() {
   const [isMagicLinkSent, setIsMagicLinkSent] = useState(false);
 
+  useEffect(() => {
+    console.log("Initial render: isMagicLinkSent =", isMagicLinkSent);
+  }, []);
+
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
@@ -35,12 +39,7 @@ export default function SignInFormCard() {
     },
   });
 
-  useEffect(() => {
-    console.log("Initial render: isMagicLinkSent =", isMagicLinkSent);
-  }, [isMagicLinkSent]);
-
-  const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
-    console.log("Form Submitted:", values);
+  async function onSubmit(values: z.infer<typeof SignInSchema>) {
     const res = await signIn(values);
 
     if (!res.success) {
@@ -48,17 +47,14 @@ export default function SignInFormCard() {
         variant: "destructive",
         description: res.message,
       });
-    } else {
+    } else if (res.success) {
       toast({
         variant: "default",
         description: res.message,
       });
       setIsMagicLinkSent(true);
-      console.log("Magic link sent: isMagicLinkSent =", isMagicLinkSent);
     }
-  };
-
-  console.log("Render: isMagicLinkSent =", isMagicLinkSent);
+  }
 
   return (
     <Card>
@@ -67,11 +63,11 @@ export default function SignInFormCard() {
         <CardDescription>
           {isMagicLinkSent
             ? "Check your email for a magic link to sign in."
-            : "Enter your email and we'll send you a magic link to sign in."}
+            : "Enter your email and we&apos;ll send you a magic link to sign in."}
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        {!isMagicLinkSent && (
+      {!isMagicLinkSent && (
+        <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
               <FormField
@@ -92,8 +88,8 @@ export default function SignInFormCard() {
               </Button>
             </form>
           </Form>
-        )}
-      </CardContent>
+        </CardContent>
+      )}
     </Card>
   );
 }
