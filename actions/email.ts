@@ -8,7 +8,7 @@ const OAuth2 = google.auth.OAuth2;
 // Your OAuth2 credentials
 const CLIENT_ID = process.env.GOOGLE_API_OAUTH_CLIENT_ID;
 const CLIENT_SECRET = process.env.GOOGLE_API_OAUTH_CLIENT_SECRET;
-const REDIRECT_URL = "localhost:3001";
+const REDIRECT_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const REFRESH_TOKEN = process.env.GOOGLE_API_OAUTH_REFRESH_TOKEN;
 const USER_EMAIL = process.env.GOOGLE_API_OAUTH_USER_EMAIL;
 
