@@ -1,13 +1,16 @@
 "use client";
 
 import React from "react";
-import { signOut } from "@/actions/auth";
-import { Button } from "./ui/button";
+import { buttonVariants } from "./ui/button";
+import Link from "next/link";
 
-const SignOutButton = () => {
-  const handleSignOut = async () => signOut();
-
-  return <Button onClick={handleSignOut}>Sign Out</Button>;
-};
+const SignOutButton = () => (
+  <Link
+    href="/api/auth/sign-out"
+    className={buttonVariants({ variant: "default", size: "sm" })}
+  >
+    Sign Out
+  </Link>
+);
 
 export default SignOutButton;

@@ -7,8 +7,6 @@ import { eq } from "drizzle-orm";
 import { generateId } from "lucia";
 import { z } from "zod";
 import { generateMagicLink, sendMagicLinkEmail } from "./magic-link.ts";
-import { lucia, validateSession } from "@/lib/auth";
-import { cookies } from "next/headers";
 
 export const signIn = async (values: z.infer<typeof SignInSchema>) => {
   try {
@@ -53,33 +51,6 @@ export const signIn = async (values: z.infer<typeof SignInSchema>) => {
       success: false,
       message: error?.message,
       data: null,
-    };
-  }
-};
-
-export const signOut = async () => {
-  try {
-    const { session } = await validateSession();
-    if (!session) {
-      return { success: false, error: "Unauthorized" };
-    }
-
-    await lucia.invalidateSession(session.id);
-
-    const sessionCookie = lucia.createBlankSessionCookie();
-
-    cookies().set(
-      sessionCookie.name,
-      sessionCookie.value,
-      sessionCookie.attributes
-    );
-
-    return { success: true };
-  } catch (error: any) {
-    console.error("signOut Error:", error);
-    return {
-      success: false,
-      error: error.message || "An unknown error occurred",
     };
   }
 };
