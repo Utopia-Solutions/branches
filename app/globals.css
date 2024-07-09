@@ -4,48 +4,48 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    --background: 0 0% 100%; /* white */
+    --foreground: 20 14.3% 4.1%; /* very dark brown */
+    --card: 0 0% 100%; /* white */
+    --card-foreground: 20 14.3% 4.1%; /* very dark brown */
+    --popover: 0 0% 100%; /* white */
+    --popover-foreground: 20 14.3% 4.1%; /* very dark brown */
+    --primary: 85 52% 46%; /* Branches Green (#80AB37) */
+    --primary-foreground: 0 0% 100%; /* white */
+    --secondary: 60 4.8% 95.9%; /* very light gray */
+    --secondary-foreground: 20 14.3% 4.1%; /* very dark brown */
+    --muted: 60 4.8% 95.9%; /* very light gray */
+    --muted-foreground: 20 14.3% 46.1%; /* medium dark brown */
+    --accent: 60 4.8% 95.9%; /* very light gray */
+    --accent-foreground: 20 14.3% 4.1%; /* very dark brown */
+    --destructive: 0 84.2% 60.2%; /* bright red */
+    --destructive-foreground: 0 0% 100%; /* white */
+    --border: 60 4.8% 90%; /* very light gray */
+    --input: 60 4.8% 90%; /* very light gray */
+    --ring: 85 52% 46%; /* Branches Green (#80AB37) */
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --background: 20 14.3% 4.1%; /* very dark brown */
+    --foreground: 60 9.1% 97.8%; /* very light gray */
+    --card: 20 14.3% 4.1%; /* very dark brown */
+    --card-foreground: 60 9.1% 97.8%; /* very light gray */
+    --popover: 20 14.3% 4.1%; /* very dark brown */
+    --popover-foreground: 60 9.1% 97.8%; /* very light gray */
+    --primary: 85 52% 46%; /* Branches Green (#80AB37) */
+    --primary-foreground: 0 0% 100%; /* white */
+    --secondary: 20 14.3% 15.9%; /* dark brown */
+    --secondary-foreground: 60 9.1% 97.8%; /* very light gray */
+    --muted: 20 14.3% 15.9%; /* dark brown */
+    --muted-foreground: 60 9.1% 63.9%; /* medium light gray */
+    --accent: 20 14.3% 15.9%; /* dark brown */
+    --accent-foreground: 60 9.1% 97.8%; /* very light gray */
+    --destructive: 0 62.8% 30.6%; /* dark red */
+    --destructive-foreground: 0 0% 100%; /* white */
+    --border: 20 14.3% 15.9%; /* dark brown */
+    --input: 20 14.3% 15.9%; /* dark brown */
+    --ring: 85 52% 46%; /* Branches Green (#80AB37) */
   }
 }
 
