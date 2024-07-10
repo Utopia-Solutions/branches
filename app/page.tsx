@@ -10,8 +10,8 @@ export default async function HomePage() {
   }
 
   return (
-    <main className="container flex flex-col w-full h-full items-center justify-center">
-      <WelcomeCard user={user} />
+    <main className="container flex flex-col w-full h-full items-center">
+      <WelcomeCard />
     </main>
   );
 }
