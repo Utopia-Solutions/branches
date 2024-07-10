@@ -59,7 +59,8 @@ const DailyItinerary: React.FC = () => {
   };
 
   return (
-    <>
+    <main className="container flex flex-col w-full h-full items-center">
+      <h1 className="text-4xl font-bold p-4">Daily Itinerary</h1>
       <UserDropdown
         currentUser={currentUser}
         familyMembers={familyMembers}
@@ -76,7 +77,7 @@ const DailyItinerary: React.FC = () => {
         onSignIn={handleSignIn}
         onScheduleAbsence={handleScheduleAbsence}
       />
-    </>
+    </main>
   );
 };
 

@@ -7,6 +7,10 @@ import { eq } from "drizzle-orm";
 import { generateId } from "lucia";
 import { z } from "zod";
 import { generateMagicLink, sendMagicLinkEmail } from "./magic-link.ts";
+import { lucia, validateSession } from "@/lib/auth/index.ts";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { ActionResult } from "next/dist/server/app-render/types";
 
 export const signIn = async (values: z.infer<typeof SignInSchema>) => {
   try {
@@ -53,4 +57,24 @@ export const signIn = async (values: z.infer<typeof SignInSchema>) => {
       data: null,
     };
   }
+};
+
+export const signOut = async function logout(): Promise<ActionResult> {
+  "use server";
+  const validSession = await validateSession();
+  if (!validSession?.session) {
+    return {
+      error: "Unauthorized",
+    };
+  }
+
+  await lucia.invalidateSession(validSession.session.id);
+
+  const sessionCookie = lucia.createBlankSessionCookie();
+  cookies().set(
+    sessionCookie.name,
+    sessionCookie.value,
+    sessionCookie.attributes
+  );
+  return redirect("/sign-in");
 };

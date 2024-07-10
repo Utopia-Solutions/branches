@@ -14,6 +14,7 @@ export const GET = async (req: NextRequest) => {
 
     const token = searchParams.get("token");
 
+    // TODO: redirect to a page that says the token is not set correctly
     if (!token) {
       return Response.json(
         {
@@ -33,6 +34,7 @@ export const GET = async (req: NextRequest) => {
 
     const isTokenExpired = Date.now() >= Number(decodedToken.expiresIn);
 
+    // TODO: redirect to a page that says the token is expired
     if (isTokenExpired) {
       return Response.json(
         {
@@ -48,6 +50,7 @@ export const GET = async (req: NextRequest) => {
       where: eq(magicLinkTable.userId, decodedToken.userId),
     });
 
+    // TODO: redirect to a page that says the token does not exist
     if (!existingToken) {
       return Response.json(
         {
@@ -77,6 +80,7 @@ export const GET = async (req: NextRequest) => {
 
     return Response.redirect(new URL(process.env.NEXT_PUBLIC_BASE_URL!), 302);
   } catch (e: any) {
+    // TODO: redirect to a page that says an error occurred
     return Response.json(
       {
         error: e.message,

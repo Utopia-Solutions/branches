@@ -3,9 +3,9 @@ import { validateSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 export default async function SignInPage() {
-  const { user } = await validateSession();
+  const validSession = await validateSession();
 
-  if (user) {
+  if (validSession?.user) {
     redirect("/");
   }
 

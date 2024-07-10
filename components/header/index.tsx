@@ -1,17 +1,20 @@
 import { validateSession } from "@/lib/auth";
 import NavMenu from "./nav-menu";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function Header() {
-  const { user } = await validateSession();
+  const validSession = await validateSession();
   // TODO: change this when roles are added
+  console.log("header validSession?.user", validSession?.user);
   const isAdmin = true;
-  return (
-    <header className="flex items-center justify-between px-4 py-3 border-b">
+
+  return validSession?.user ? (
+    <header className="flex items-center justify-between px-2 py-1 border-b">
       <Link href="/" className="text-lg font-bold hover:underline">
-        Branches
+        <Image src="/logo.png" alt="Logo" width={50} height={50} />
       </Link>
-      {user && <NavMenu isAdmin={isAdmin} />}
+      <NavMenu isAdmin={isAdmin} />
     </header>
-  );
+  ) : null;
 }

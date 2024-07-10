@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { SignInSchema } from "@/types";
-import { toast } from "@/components/ui/use-toast";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -24,6 +23,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { signIn } from "@/actions/auth";
+import Image from "next/image";
+import { toast } from "sonner";
 
 export default function SignInFormCard() {
   const [isMagicLinkSent, setIsMagicLinkSent] = useState(false);
@@ -48,15 +49,9 @@ export default function SignInFormCard() {
     const res = await signIn(values);
 
     if (!res.success) {
-      toast({
-        variant: "destructive",
-        description: res.message,
-      });
+      toast(res.message);
     } else if (res.success) {
-      toast({
-        variant: "default",
-        description: res.message,
-      });
+      toast(res.message);
       setIsMagicLinkSent(true);
     }
     setIsLoading(false);
@@ -64,7 +59,14 @@ export default function SignInFormCard() {
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="pt-0">
+        <Image
+          src="/logo.png"
+          alt="Logo"
+          className="w-full"
+          width={300}
+          height={300}
+        />
         <CardTitle>{isMagicLinkSent ? "Magic Link Sent" : "Welcome"}</CardTitle>
         <CardDescription>
           {isMagicLinkSent

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -9,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+import { signOut } from "@/actions/auth";
 
 export default function NavMenu({ isAdmin }: { isAdmin: boolean }) {
   return (
@@ -21,33 +24,37 @@ export default function NavMenu({ isAdmin }: { isAdmin: boolean }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Link href="/">Daily Itinerary</Link>
+          <DropdownMenuItem asChild>
+            <Link href="/itinerary">Daily Itinerary</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         {isAdmin && (
           <>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href="/event-tracker">Event Tracker</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href="/semesters">Semesters</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href="/classes">Classes</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href="/absences">Absences</Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Link href="/api/auth/sign-out">Sign Out</Link>
-        </DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuItem asChild>
+            <button className="w-full" onClick={() => signOut()}>
+              Sign Out
+            </button>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

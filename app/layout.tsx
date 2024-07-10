@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/header";
-import { Yeseva_One } from "next/font/google";
-import { Manrope } from "next/font/google";
+import { Roboto, Roboto_Slab } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
 
-const fontHeading = Yeseva_One({
+const fontHeading = Roboto_Slab({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-heading",
   weight: "400",
 });
 
-const fontBody = Manrope({
+const fontBody = Roboto({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-body",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -37,7 +37,7 @@ export default function RootLayout({
         <div className="flex flex-col h-screen w-screen overflow-hidden">
           <Header />
           {children}
-          <Toaster />
+          <Toaster position="bottom-right" />
         </div>
       </body>
     </html>

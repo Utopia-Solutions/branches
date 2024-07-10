@@ -1,17 +1,12 @@
 import { validateSession } from "@/lib/auth";
-import WelcomeCard from "@/components/welcome-card";
 import { redirect } from "next/navigation";
 
 export default async function HomePage() {
-  const { user } = await validateSession();
+  const validSession = await validateSession();
 
-  if (!user) {
+  if (!validSession?.user) {
     return redirect("/sign-in");
   }
 
-  return (
-    <main className="container flex flex-col w-full h-full items-center">
-      <WelcomeCard />
-    </main>
-  );
+  return redirect("/itinerary");
 }

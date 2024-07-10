@@ -1,10 +1,19 @@
 import { fontFamily } from "tailwindcss/defaultTheme";
+import { Config } from "tailwindcss/types/config";
 
-/** @type {import('tailwindcss').Config} */
 const config = {
   content: ["./components/**/*.{js,ts,jsx,tsx}", "./app/**/*.{js,ts,jsx,tsx}"],
+  darkMode: ["class"],
+  prefix: "",
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: "2rem",
+        screens: {
+          "2xl": "1400px",
+        },
+      },
       fontFamily: {
         heading: ["var(--font-heading)", ...fontFamily.serif],
         body: ["var(--font-body)", ...fontFamily.sans],
@@ -52,12 +61,12 @@ const config = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: 0 },
+          from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
+          to: { height: "0" },
         },
       },
       animation: {
@@ -67,6 +76,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-};
+} satisfies Config;
 
 export default config;
