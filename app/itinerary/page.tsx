@@ -3,7 +3,7 @@
 import { useState } from "react";
 import UserSelect from "./_components/user-select";
 import DateCarousel from "./_components/date-carousel";
-import ItineraryTable from "./_components/itinerary-table";
+import ItineraryCardList from "./_components/itinerary-card-list";
 
 const DailyItinerary = () => {
   const [currentUser, setCurrentUser] = useState("Tim Taylor");
@@ -60,7 +60,6 @@ const DailyItinerary = () => {
 
   return (
     <main className="container flex flex-col w-full h-full items-center">
-      <h1 className="text-4xl font-bold m-4">Daily Itinerary</h1>
       <UserSelect
         currentUser={currentUser}
         familyMembers={familyMembers}
@@ -71,7 +70,7 @@ const DailyItinerary = () => {
         selectedDate={selectedDate}
         onSelectDate={handleDateSelect}
       />
-      <ItineraryTable
+      <ItineraryCardList
         itinerary={itinerary}
         isFutureDate={selectedDate !== "Jan 4"}
         onSignIn={handleSignIn}
