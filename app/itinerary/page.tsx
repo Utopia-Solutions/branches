@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import UserDropdown from "@/components/user-dropdown";
-import DatePicker from "@/components/date-picker";
-import Itinerary from "@/components/itinerary";
+import { useState } from "react";
+import UserSelect from "./_components/user-select";
+import DateCarousel from "./_components/date-carousel";
+import ItineraryTable from "./_components/itinerary-table";
 
-const DailyItinerary: React.FC = () => {
+const DailyItinerary = () => {
   const [currentUser, setCurrentUser] = useState("Tim Taylor");
-  const [selectedDate, setSelectedDate] = useState("Jan 18");
+  const [selectedDate, setSelectedDate] = useState("Jan 4");
   const [itinerary, setItinerary] = useState({
-    date: "Jan 18",
+    date: "Jan 4",
     classes: [
       {
         time: "8:00 AM - 9:00 AM",
@@ -60,20 +60,20 @@ const DailyItinerary: React.FC = () => {
 
   return (
     <main className="container flex flex-col w-full h-full items-center">
-      <h1 className="text-4xl font-bold p-4">Daily Itinerary</h1>
-      <UserDropdown
+      <h1 className="text-4xl font-bold m-4">Daily Itinerary</h1>
+      <UserSelect
         currentUser={currentUser}
         familyMembers={familyMembers}
         onSelect={handleUserSelect}
       />
-      <DatePicker
+      <DateCarousel
         dates={dates}
         selectedDate={selectedDate}
         onSelectDate={handleDateSelect}
       />
-      <Itinerary
+      <ItineraryTable
         itinerary={itinerary}
-        isFutureDate={selectedDate !== "Jan 18"}
+        isFutureDate={selectedDate !== "Jan 4"}
         onSignIn={handleSignIn}
         onScheduleAbsence={handleScheduleAbsence}
       />

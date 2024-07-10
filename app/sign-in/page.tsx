@@ -1,4 +1,4 @@
-import SignInFormCard from "@/components/sign-in-form-card";
+import SignInFormCard from "./_components/sign-in-form-card";
 import { validateSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
