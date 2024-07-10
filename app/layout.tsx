@@ -1,10 +1,23 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/header";
+import { Yeseva_One } from "next/font/google";
+import { Manrope } from "next/font/google";
+import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontHeading = Yeseva_One({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-heading",
+  weight: "400",
+});
+
+const fontBody = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-body",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +31,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={cn("antialiased", fontHeading.variable, fontBody.variable)}
+      >
         <div className="flex flex-col h-screen w-screen overflow-hidden">
           <Header />
           {children}
