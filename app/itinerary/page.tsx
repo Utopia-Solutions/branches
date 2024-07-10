@@ -7,9 +7,9 @@ import ItineraryCardList from "./_components/itinerary-card-list";
 
 const DailyItinerary = () => {
   const [currentUser, setCurrentUser] = useState("Tim Taylor");
-  const [selectedDate, setSelectedDate] = useState("Jan 4");
+  const [selectedDate, setSelectedDate] = useState("Jan 04");
   const [itinerary, setItinerary] = useState({
-    date: "Jan 4",
+    date: "Jan 04",
     classes: [
       {
         time: "8:00 AM - 9:00 AM",
@@ -31,12 +31,12 @@ const DailyItinerary = () => {
     "Randy Taylor",
   ];
   const dates = [
-    "Jan 4",
+    "Jan 04",
     "Jan 11",
     "Jan 18",
     "Jan 25",
-    "Feb 1",
-    "Feb 8",
+    "Feb 01",
+    "Feb 08",
     "Feb 15",
   ];
 
@@ -72,7 +72,7 @@ const DailyItinerary = () => {
       />
       <ItineraryCardList
         itinerary={itinerary}
-        isFutureDate={selectedDate !== "Jan 4"}
+        isFutureDate={selectedDate !== "Jan 04"}
         onSignIn={handleSignIn}
         onScheduleAbsence={handleScheduleAbsence}
       />

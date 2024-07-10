@@ -1,13 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Pencil2Icon, PersonIcon } from "@radix-ui/react-icons";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 
 interface ClassInfo {
   time: string;
