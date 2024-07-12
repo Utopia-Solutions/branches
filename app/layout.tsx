@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import { Roboto, Roboto_Slab } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
+import { AppProvider } from "@/contexts/AppContext";
 
 const fontHeading = Roboto_Slab({
   subsets: ["latin"],
@@ -34,11 +35,13 @@ export default function RootLayout({
       <body
         className={cn("antialiased", fontHeading.variable, fontBody.variable)}
       >
-        <div className="flex flex-col h-screen w-screen overflow-hidden">
-          <Header />
-          {children}
-          <Toaster position="bottom-right" />
-        </div>
+        <AppProvider>
+          <div className="flex flex-col h-screen w-screen overflow-hidden">
+            <Header />
+            {children}
+            <Toaster position="bottom-right" />
+          </div>
+        </AppProvider>
       </body>
     </html>
   );

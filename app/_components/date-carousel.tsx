@@ -26,7 +26,7 @@ const DateCarousel: React.FC<DateCarouselProps> = ({
     >
       <CarouselContent className="-ml-2">
         {dates.map((date, index) => {
-          console.log(selectedDate, date);
+          // console.log(selectedDate, date);
           return (
             <CarouselItem key={index} className="basis-1/4 sm:basis-1/6 pl-2">
               <Button

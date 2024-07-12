@@ -1,12 +1,13 @@
-import { validateSession } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import Itinerary from "./_components/itinerary";
 
 export default async function HomePage() {
-  const validSession = await validateSession();
+  const user = await getCurrentUser();
 
-  if (!validSession?.user) {
+  if (!user) {
     return redirect("/sign-in");
   }
 
-  return redirect("/itinerary");
+  return <Itinerary />;
 }

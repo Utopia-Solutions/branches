@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import UserSelect from "./_components/user-select";
-import DateCarousel from "./_components/date-carousel";
-import ItineraryCardList from "./_components/itinerary-card-list";
+import UserSelect from "./user-select";
+import DateCarousel from "./date-carousel";
+import ItineraryCardList from "./itinerary-card-list";
 
-const DailyItinerary = () => {
+const Itinerary = () => {
   const [currentUser, setCurrentUser] = useState("Tim Taylor");
   const [selectedDate, setSelectedDate] = useState("Jan 04");
   const [itinerary, setItinerary] = useState({
@@ -80,4 +80,4 @@ const DailyItinerary = () => {
   );
 };
 
-export default DailyItinerary;
+export default Itinerary;

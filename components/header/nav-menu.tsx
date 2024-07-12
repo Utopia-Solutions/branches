@@ -25,7 +25,7 @@ export default function NavMenu({ isAdmin }: { isAdmin: boolean }) {
       <DropdownMenuContent align="end">
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/itinerary">Daily Itinerary</Link>
+            <Link href="/">Daily Itinerary</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         {isAdmin && (

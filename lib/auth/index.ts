@@ -10,6 +10,11 @@ export const lucia = new Lucia(adapter, {
       secure: process.env.NODE_ENV === "production",
     },
   },
+  getUserAttributes: (attributes) => {
+    return {
+      email: attributes.email,
+    };
+  },
 });
 
 export const validateSession = cache(async () => {
@@ -42,9 +47,19 @@ export const validateSession = cache(async () => {
   return result;
 });
 
+export const getCurrentUser = async () => {
+  const validSession = await validateSession();
+  return validSession?.user ?? null;
+};
+
 // IMPORTANT!
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
+    DatabaseUserAttributes: DatabaseUserAttributes;
   }
+}
+
+interface DatabaseUserAttributes {
+  email: string;
 }

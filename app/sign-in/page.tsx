@@ -1,11 +1,11 @@
 import SignInFormCard from "./_components/sign-in-form-card";
-import { validateSession } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 export default async function SignInPage() {
-  const validSession = await validateSession();
+  const user = await getCurrentUser();
 
-  if (validSession?.user) {
+  if (user) {
     redirect("/");
   }
 

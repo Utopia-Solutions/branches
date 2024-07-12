@@ -34,3 +34,100 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+```
+branches
+├─ .eslintrc.json
+├─ .vscode
+│  └─ extensions.json
+├─ README.md
+├─ actions
+│  ├─ auth.ts
+│  ├─ email.ts
+│  └─ magic-link.ts
+├─ app
+│  ├─ absences
+│  │  └─ page.tsx
+│  ├─ api
+│  │  └─ auth
+│  │     ├─ magic-link
+│  │     │  └─ route.ts
+│  │     ├─ sign-out
+│  │     │  └─ route.ts
+│  │     └─ sync-data
+│  │        └─ route.ts
+│  ├─ classes
+│  │  └─ page.tsx
+│  ├─ event-tracker
+│  │  └─ page.tsx
+│  ├─ favicon.ico
+│  ├─ globals.css
+│  ├─ itinerary
+│  │  ├─ _components
+│  │  │  ├─ date-carousel.tsx
+│  │  │  ├─ itinerary-card-list.tsx
+│  │  │  └─ user-select.tsx
+│  │  └─ page.tsx
+│  ├─ layout.tsx
+│  ├─ middleware.ts
+│  ├─ page.tsx
+│  ├─ semesters
+│  │  └─ page.tsx
+│  └─ sign-in
+│     ├─ _components
+│     │  └─ sign-in-form-card.tsx
+│     └─ page.tsx
+├─ components
+│  ├─ header
+│  │  ├─ index.tsx
+│  │  └─ nav-menu.tsx
+│  ├─ sign-out-button.tsx
+│  └─ ui
+│     ├─ button.tsx
+│     ├─ card.tsx
+│     ├─ carousel.tsx
+│     ├─ dropdown-menu.tsx
+│     ├─ form.tsx
+│     ├─ input.tsx
+│     ├─ label.tsx
+│     ├─ select.tsx
+│     ├─ sonner.tsx
+│     └─ table.tsx
+├─ components.json
+├─ cron
+│  ├─ fetch-data-from-ftp.ts
+│  ├─ process-data.ts
+│  └─ update-database.ts
+├─ docs
+│  └─ CRON_CONFIG.md
+├─ drizzle
+│  ├─ 0000_tense_justice.sql
+│  ├─ 0001_unusual_doctor_faustus.sql
+│  ├─ envConfig.ts
+│  └─ meta
+│     ├─ 0000_snapshot.json
+│     ├─ 0001_snapshot.json
+│     └─ _journal.json
+├─ drizzle.config.ts
+├─ lib
+│  ├─ auth
+│  │  ├─ adapter.ts
+│  │  └─ index.ts
+│  ├─ db
+│  │  ├─ index.ts
+│  │  ├─ queries
+│  │  │  └─ family.ts
+│  │  └─ schema.ts
+│  └─ utils.ts
+├─ next.config.mjs
+├─ package-lock.json
+├─ package.json
+├─ postcss.config.mjs
+├─ public
+│  └─ logo.png
+├─ tailwind.config.ts
+├─ tsconfig.json
+└─ types
+   └─ index.ts
+
+```
