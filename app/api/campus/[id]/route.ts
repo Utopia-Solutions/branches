@@ -9,5 +9,5 @@ interface Params {
 
 export const GET = async (req: NextRequest, { params: { id } }: Params) => {
   const campus = await getCampusById(Number(id));
-  return campus;
+  Response.json(campus);
 };
