@@ -8,18 +8,22 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { Campus } from "@/lib/db/schema";
+import { redirect } from "next/navigation";
 
-export default function CampusSelect() {
-  const { selectedCampusId, setSelectedCampusId, campuses, selectedCampus } =
-    useAppContext();
-
-  console.log(selectedCampusId, campuses, selectedCampus);
-
+export default function CampusSelect({
+  selectedCampus,
+  campuses,
+}: {
+  selectedCampus: Campus | undefined | null;
+  campuses: Campus[];
+}) {
+  console.log("selectedCampus", selectedCampus);
   return (
     <div>
       <Select
-        onValueChange={(value) => setSelectedCampusId(Number(value))}
-        defaultValue={selectedCampusId?.toString() ?? ""}
+        onValueChange={(value) => redirect(`/${value}/itinerary`)}
+        defaultValue={selectedCampus?.id?.toString() ?? ""}
       >
         <SelectTrigger>
           <SelectValue placeholder="Select Campus">

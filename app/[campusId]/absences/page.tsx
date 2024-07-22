@@ -1,6 +1,11 @@
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
+export const metadata = {
+  title: "Absences",
+  description: "Absences",
+};
+
 export default async function AbsencesPage() {
   const user = await getCurrentUser();
 

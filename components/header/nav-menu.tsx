@@ -13,7 +13,13 @@ import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { signOut } from "@/actions/auth";
 
-export default function NavMenu({ isAdmin }: { isAdmin: boolean }) {
+export default function NavMenu({
+  isAdmin,
+  selectedCampusId,
+}: {
+  isAdmin: boolean;
+  selectedCampusId: number;
+}) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,7 +31,7 @@ export default function NavMenu({ isAdmin }: { isAdmin: boolean }) {
       <DropdownMenuContent align="end">
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/">Daily Itinerary</Link>
+            <Link href={`/${selectedCampusId}/itinerary`}>Daily Itinerary</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         {isAdmin && (
@@ -33,16 +39,18 @@ export default function NavMenu({ isAdmin }: { isAdmin: boolean }) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
-                <Link href="/event-tracker">Event Tracker</Link>
+                <Link href={`/${selectedCampusId}/event-tracker`}>
+                  Event Tracker
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/semesters">Semesters</Link>
+                <Link href={`/${selectedCampusId}/semesters`}>Semesters</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/classes">Classes</Link>
+                <Link href={`/${selectedCampusId}/classes`}>Classes</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/absences">Absences</Link>
+                <Link href={`/${selectedCampusId}/absences`}>Absences</Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </>

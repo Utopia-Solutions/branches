@@ -2,16 +2,16 @@ import { eq, and, inArray } from "drizzle-orm";
 import db from "../";
 import { Child, Class, familyTable, Registration } from "../schema";
 import {
-  getChildsByFamilyIdAndCampus,
-  getChildsByFamilyIdsAndCampus,
+  getChildsByFamilyIdAndCampusId,
+  getChildsByFamilyIdsAndCampusId,
 } from "./child";
-import { getRegistrationsByFamilyIdAndCampus } from "./registration";
-import { getClassesByIdsAndCampus } from "./class";
+import { getRegistrationsByFamilyIdAndCampusId } from "./registration";
+import { getClassesByIdsAndCampusId } from "./class";
 
-export const getAllFamilyDataByEmailAndCampus = async (
+export const getAllFamilyDataByEmailAndCampusId = async (
   primaryEmail: string,
   campusId: number
-):Promise<FamilyData | null> => {
+): Promise<FamilyData | null> => {
   const family = await db
     .select()
     .from(familyTable)
@@ -27,14 +27,14 @@ export const getAllFamilyDataByEmailAndCampus = async (
 
   const familyId = family[0].id;
 
-  const childs = await getChildsByFamilyIdAndCampus(familyId, campusId);
-  const registrations = await getRegistrationsByFamilyIdAndCampus(
+  const childs = await getChildsByFamilyIdAndCampusId(familyId, campusId);
+  const registrations = await getRegistrationsByFamilyIdAndCampusId(
     familyId,
     campusId
   );
 
   const classIds = registrations.map((reg) => reg.classId);
-  const classes = await getClassesByIdsAndCampus(classIds, campusId);
+  const classes = await getClassesByIdsAndCampusId(classIds, campusId);
 
   return {
     primaryPhone: "",
@@ -68,7 +68,7 @@ export interface FamilyData {
   registrations: RegistrationWithClass[];
 }
 
-export const getFamilyByIdAndCampus = async (
+export const getFamilyByIdAndCampusId = async (
   familyId: number,
   campusId: number
 ) => {
@@ -82,7 +82,7 @@ export const getFamilyByIdAndCampus = async (
 
   if (!family.length) return null;
 
-  const childs = await getChildsByFamilyIdAndCampus(familyId, campusId);
+  const childs = await getChildsByFamilyIdAndCampusId(familyId, campusId);
 
   return {
     ...family[0],
@@ -90,7 +90,7 @@ export const getFamilyByIdAndCampus = async (
   };
 };
 
-export const getAllFamiliesByCampus = async (campusId: number) => {
+export const getAllFamiliesByCampusId = async (campusId: number) => {
   const families = await db
     .select()
     .from(familyTable)
@@ -98,10 +98,46 @@ export const getAllFamiliesByCampus = async (campusId: number) => {
     .execute();
 
   const familyIds = families.map((family) => family.id);
-  const childs = await getChildsByFamilyIdsAndCampus(familyIds, campusId);
+  const childs = await getChildsByFamilyIdsAndCampusId(familyIds, campusId);
 
   return families.map((family) => ({
     ...family,
     childs: childs.filter((child) => child.familyId === family.id),
   }));
+};
+
+export const getFamilyByChildIdAndCampusId = async (
+  childId: number,
+  campusId: number
+) => {
+  const family = await db
+    .select()
+    .from(familyTable)
+    .where(and(eq(familyTable.id, childId), eq(familyTable.campusId, campusId)))
+    .execute();
+  return family[0] || null;
+};
+
+export const getFamilyWithChildsByEmailAndCampusId = async (
+  primaryEmail: string,
+  campusId: number
+) => {
+  const family = await db
+    .select()
+    .from(familyTable)
+    .where(
+      and(
+        eq(familyTable.primaryEmail, primaryEmail),
+        eq(familyTable.campusId, campusId)
+      )
+    )
+    .execute();
+
+  const childs = await getChildsByFamilyIdAndCampusId(family[0].id, campusId);
+  if (!family) return null;
+  const familyWithChilds = {
+    ...family[0],
+    childs,
+  };
+  return familyWithChilds;
 };

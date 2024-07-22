@@ -2,7 +2,7 @@ import { eq, and } from "drizzle-orm";
 import db from "../";
 import { registrationTable } from "../schema";
 
-export const getRegistrationByIdAndCampus = async (
+export const getRegistrationByIdAndCampusId = async (
   registrationId: number,
   campusId: number
 ) => {
@@ -18,7 +18,7 @@ export const getRegistrationByIdAndCampus = async (
     .execute();
 };
 
-export const getAllRegistrationsByCampus = async (campusId: number) => {
+export const getAllRegistrationsByCampusId = async (campusId: number) => {
   return await db
     .select()
     .from(registrationTable)
@@ -26,7 +26,7 @@ export const getAllRegistrationsByCampus = async (campusId: number) => {
     .execute();
 };
 
-export const getRegistrationsByFamilyIdAndCampus = async (
+export const getRegistrationsByFamilyIdAndCampusId = async (
   familyId: number,
   campusId: number
 ) => {

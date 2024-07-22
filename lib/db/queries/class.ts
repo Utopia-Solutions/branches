@@ -2,7 +2,7 @@ import { eq, and, inArray } from "drizzle-orm";
 import db from "../";
 import { classTable } from "../schema";
 
-export const getClassByIdAndCampus = async (
+export const getClassByIdAndCampusId = async (
   classId: number,
   campusId: number
 ) => {
@@ -13,7 +13,7 @@ export const getClassByIdAndCampus = async (
     .execute();
 };
 
-export const getAllClassesByCampus = async (campusId: number) => {
+export const getAllClassesByCampusId = async (campusId: number) => {
   return await db
     .select()
     .from(classTable)
@@ -21,7 +21,7 @@ export const getAllClassesByCampus = async (campusId: number) => {
     .execute();
 };
 
-export const getClassesByInstructorEmailAndCampus = async (
+export const getClassesByInstructorEmailAndCampusId = async (
   instructorEmail: string,
   campusId: number
 ) => {
@@ -37,7 +37,7 @@ export const getClassesByInstructorEmailAndCampus = async (
     .execute();
 };
 
-export const getClassesByIdsAndCampus = async (
+export const getClassesByIdsAndCampusId = async (
   classIds: number[],
   campusId: number
 ) => {

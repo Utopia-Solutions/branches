@@ -2,18 +2,19 @@ import { eq, inArray, and } from "drizzle-orm";
 import db from "../";
 import { childTable } from "../schema";
 
-export const getChildByIdAndCampus = async (
+export const getChildByIdAndCampusId = async (
   childId: number,
   campusId: number
 ) => {
-  return await db
+  const response = await db
     .select()
     .from(childTable)
     .where(and(eq(childTable.id, childId), eq(childTable.campusId, campusId)))
     .execute();
+  return response[0];
 };
 
-export const getAllChildsByCampus = async (campusId: number) => {
+export const getAllChildsByCampusId = async (campusId: number) => {
   return await db
     .select()
     .from(childTable)
@@ -21,7 +22,7 @@ export const getAllChildsByCampus = async (campusId: number) => {
     .execute();
 };
 
-export const getChildsByFamilyIdAndCampus = async (
+export const getChildsByFamilyIdAndCampusId = async (
   familyId: number,
   campusId: number
 ) => {
@@ -34,7 +35,7 @@ export const getChildsByFamilyIdAndCampus = async (
     .execute();
 };
 
-export const getChildsByFamilyIdsAndCampus = async (
+export const getChildsByFamilyIdsAndCampusId = async (
   familyIds: number[],
   campusId: number
 ) => {
